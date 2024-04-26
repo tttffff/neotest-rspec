@@ -131,7 +131,17 @@ function NeotestAdapter.build_spec(args)
     script_args,
   })
 
+  local dap_config = {
+    type = "ruby",
+    request = "attach",
+    localfs = true,
+    random_port = true,
+    command = "bundle",
+    args = vim.tbl_flatten({ "exec", "rspec", script_args }),
+  }
+
   return {
+    strategy = dap_config,
     cwd = engine_name,
     command = command,
     context = {
